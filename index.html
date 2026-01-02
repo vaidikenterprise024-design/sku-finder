@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SKU Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- OCR LIBRARY -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+
+<header>SKU Finder</header>
+
+<div class="search-box">
+  <input id="searchInput" placeholder="Search by SKU or Product">
+</div>
+
+<div class="button-row">
+  <button class="btn blue" onclick="searchSKU()">🔍 Search</button>
+</div>
+
+<div id="list" class="list"></div>
+
+<!-- FLOAT ADD BUTTON -->
+<button class="fab" onclick="openAdd()">＋</button>
+
+<!-- ADD / EDIT POPUP -->
+<div id="addPopup" class="popup hidden">
+  <div class="box">
+    <h3 id="popupTitle">Add SKU</h3>
+
+    <input id="skuInput" placeholder="SKU Code">
+    <button class="scan-btn" onclick="scanText('sku')">📷 Scan SKU</button>
+
+    <input id="productInput" placeholder="Product Name">
+    <button class="scan-btn" onclick="scanText('product')">📷 Scan Product</button>
+
+    <input type="file" id="imageInput" accept="image/*">
+
+    <button class="btn blue" onclick="saveSKU()">Save</button>
+    <button class="btn gray" onclick="closeAdd()">Cancel</button>
+  </div>
+</div>
+
+<!-- IMAGE VIEW POPUP -->
+<div id="imagePopup" class="popup hidden" onclick="closeImage()">
+  <img id="popupImg" class="big-img">
+</div>
+
+<!-- HIDDEN CAMERA INPUT FOR OCR -->
+<input type="file" id="ocrCamera" accept="image/*" capture hidden>
+
+<script src="script.js"></script>
+</body>
+</html>

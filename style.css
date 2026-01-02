@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+header {
+  padding: 15px;
+  background: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.search-box {
+  padding: 10px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+.button-row {
+  padding: 10px;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+}
+
+.blue { background: #0d6efd; }
+.gray { background: #999; }
+
+.scan-btn {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #3ecf5e;
+  color: white;
+}
+
+.list {
+  padding: 10px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  margin-right: 12px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.card-text {
+  flex: 1;
+}
+
+.card-text b {
+  display: block;
+}
+
+.card-actions button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #0d6efd;
+  color: white;
+  font-size: 30px;
+}
+
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  background: white;
+  width: 90%;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.big-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+}
+
+.hidden {
+  display: none;
+}
