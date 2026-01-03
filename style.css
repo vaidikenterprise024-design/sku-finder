@@ -6,7 +6,7 @@ body {
 
 header {
   padding: 15px;
-  background: white;
+  background: #ffffff;
   font-size: 20px;
   font-weight: bold;
 }
@@ -30,8 +30,8 @@ header {
 .btn {
   width: 100%;
   padding: 14px;
-  border: none;
   border-radius: 10px;
+  border: none;
   font-size: 16px;
   color: white;
 }
@@ -43,8 +43,8 @@ header {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: none;
   border-radius: 8px;
+  border: none;
   background: #3ecf5e;
   color: white;
 }
@@ -84,20 +84,19 @@ header {
   border: none;
   font-size: 18px;
   margin-left: 6px;
-  cursor: pointer;
 }
 
 .fab {
   position: fixed;
-  bottom: 20px;
   right: 20px;
+  bottom: 20px;
   width: 56px;
   height: 56px;
   border-radius: 50%;
   border: none;
   background: #0d6efd;
   color: white;
-  font-size: 30px;
+  font-size: 18px;
 }
 
 .popup {
@@ -131,3 +130,4 @@ header {
 .hidden {
   display: none;
 }
+
