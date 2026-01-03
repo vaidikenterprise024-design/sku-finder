@@ -1,10 +1,32 @@
-let skuData = JSON.parse(localStorage.getItem("skuData")) || [];
+/************* 🔥 FIREBASE CONFIG *************/
+/* 🔴 REPLACE THIS WITH YOUR OWN FIREBASE CONFIG */
+const firebaseConfig = {
+  apiKey: "AIzaSyD-DvWQKy0Zfp8WecOpuLdal4V0mIdXgVw",
+  authDomain: "sku-finder-abd77.firebaseapp.com",
+  projectId: "sku-finder-abd77",
+  storageBucket: "sku-finder-abd77.firebasestorage.app",
+  messagingSenderId: "1025694868300",
+  appId: "1:1025694868300:web:10a0090ff07296f64a25e9"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+/*********************************************/
+
+let skuData = [];
 let editIndex = null;
 let scanTarget = "";
 
-renderList();
+/* REAL-TIME LOAD */
+db.collection("skus").onSnapshot(snapshot => {
+  skuData = [];
+  snapshot.forEach(doc => {
+    skuData.push({ id: doc.id, ...doc.data() });
+  });
+  renderList();
+});
 
-// RENDER LIST
+/* RENDER */
 function renderList(data = skuData) {
   list.innerHTML = "";
   data.forEach((item, index) => {
@@ -24,7 +46,7 @@ function renderList(data = skuData) {
   });
 }
 
-// SEARCH
+/* SEARCH */
 function searchSKU() {
   const val = searchInput.value.toLowerCase();
   renderList(
@@ -35,17 +57,16 @@ function searchSKU() {
   );
 }
 
-// IMAGE VIEW
+/* IMAGE VIEW */
 function viewImage(src) {
   popupImg.src = src;
   imagePopup.classList.remove("hidden");
 }
-
 function closeImage() {
   imagePopup.classList.add("hidden");
 }
 
-// ADD / EDIT
+/* ADD / EDIT */
 function openAdd() {
   editIndex = null;
   popupTitle.innerText = "Add SKU";
@@ -54,7 +75,9 @@ function openAdd() {
   imageInput.value = "";
   addPopup.classList.remove("hidden");
 }
-
+function closeAdd() {
+  addPopup.classList.add("hidden");
+}
 function editSKU(index) {
   editIndex = index;
   popupTitle.innerText = "Edit SKU";
@@ -63,57 +86,45 @@ function editSKU(index) {
   addPopup.classList.remove("hidden");
 }
 
-function closeAdd() {
-  addPopup.classList.add("hidden");
-}
-
-// SAVE
+/* SAVE */
 function saveSKU() {
   const sku = skuInput.value;
   const product = productInput.value;
   const img = imageInput.files[0];
 
   if (editIndex !== null) {
-    skuData[editIndex].sku = sku;
-    skuData[editIndex].product = product;
-
     if (img) {
       const r = new FileReader();
       r.onload = () => {
-        skuData[editIndex].image = r.result;
-        finishSave();
+        db.collection("skus").doc(skuData[editIndex].id).update({
+          sku, product, image: r.result
+        });
+        closeAdd();
       };
       r.readAsDataURL(img);
-      return;
+    } else {
+      db.collection("skus").doc(skuData[editIndex].id).update({ sku, product });
+      closeAdd();
     }
-    finishSave();
   } else {
     if (!img) return alert("Select image");
     const r = new FileReader();
     r.onload = () => {
-      skuData.push({ sku, product, image: r.result });
-      finishSave();
+      db.collection("skus").add({ sku, product, image: r.result });
+      closeAdd();
     };
     r.readAsDataURL(img);
   }
 }
 
-function finishSave() {
-  localStorage.setItem("skuData", JSON.stringify(skuData));
-  renderList();
-  closeAdd();
-}
-
-// DELETE
+/* DELETE */
 function deleteSKU(index) {
   if (confirm("Delete this SKU?")) {
-    skuData.splice(index, 1);
-    localStorage.setItem("skuData", JSON.stringify(skuData));
-    renderList();
+    db.collection("skus").doc(skuData[index].id).delete();
   }
 }
 
-// OCR TEXT SCAN
+/* OCR SCAN */
 function scanText(target) {
   scanTarget = target;
   ocrCamera.click();
@@ -129,3 +140,4 @@ ocrCamera.onchange = e => {
     if (scanTarget === "product") productInput.value = text;
   });
 };
+
